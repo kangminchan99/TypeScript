@@ -1,0 +1,19 @@
+// 타입스크립트 컴파일러의 설정 파일입니다. tsc --init 명령어로 생성
+{
+  "compilerOptions": {
+    // 어떤 js 버전으로 변환할지 설정 (esnext는 최신 버전)
+    "target": "esnext",
+    // 파일 간에 코드 주고받는 방식 설정 (esnext는 최신 모듈 시스템)
+    "module": "esnext",
+    // 시작 기준(rootDir)
+    "rootDir": ".",
+    // 컴파일된 js 파일이 저장될 디렉토리 설정
+    "outDir": "dist",
+    // 컴파일러가 엄격한 타입 검사를 수행하도록 설정 (코드 품질 향상)
+    "strict": false,
+    // 모든 파일을 개별 모듈로 취급
+    "moduleDetection": "force"
+  },
+  // src 경로 하위의 모든 .ts 파일을 컴파일 대상으로 지정 (tsc 명령어로 실행)
+  "include": ["src"]
+}
