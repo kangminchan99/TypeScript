@@ -5,7 +5,8 @@
     "rootDir": ".",
     "outDir": "dist",
     "strict": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "allowJs": true
   },
   "include": ["src"]
 }
