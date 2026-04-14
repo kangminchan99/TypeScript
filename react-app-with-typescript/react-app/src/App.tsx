@@ -2,6 +2,7 @@ import { useEffect, useReducer, useRef } from 'react';
 import './App.css';
 import Editor from './components/Editor';
 import TodoItem from './components/TodoItem';
+import { TodoDispatchContext, TodoStateContext } from './context/TodoContext';
 import type { Todo } from './types';
 
 // =====================================================
@@ -66,6 +67,9 @@ function reducer(state: Todo[], action: Action) {
   }
 }
 
+// Context는 ./context/TodoContext.ts로 분리
+// → Fast Refresh(HMR)는 컴포넌트만 export하는 파일에서만 작동하기 때문
+
 function App() {
   // [useState 방식] - 주석 처리됨
   // const [todos, setTodos] = useState<Todo[]>([]);
@@ -119,20 +123,16 @@ function App() {
   return (
     <div className="App">
       <h1>TodoList</h1>
-      {/* Editor 컴포넌트에 onClickAdd 함수를 props로 전달 */}
-      {/* children으로 <div>child</div>를 전달 (ReactElement 타입) */}
-      <Editor onClickAdd={onClickAdd}>
-        <div>child</div>
-      </Editor>
-      <div>
-        {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            {...todo}
-            onClickDelete={onClickDelete}
-          ></TodoItem>
-        ))}
-      </div>
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={{ onClickAdd, onClickDelete }}>
+          <Editor></Editor>
+          <div>
+            {todos.map((todo) => (
+              <TodoItem key={todo.id} {...todo}></TodoItem>
+            ))}
+          </div>
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 }
